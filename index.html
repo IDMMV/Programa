@@ -183,7 +183,8 @@ function cellBg(ws,r,c){
     return '#'+fg.rgb.slice(-6);
   }
   if(fg.theme!==undefined&&fg.theme!==null){
-    return THEME_COLORS[fg.theme]||null;
+    const tc=THEME_COLORS[Number(fg.theme)];
+    return tc||null;
   }
   return null;
 }
@@ -202,7 +203,10 @@ function cellComment(ws,r,c){
   const a=XLSX.utils.encode_cell({r,c});
   if(ws['!comments']){
     for(const cm of ws['!comments']){
-      if(cm[0]===a&&cm[1])return cm[1].t||cm[1].v||null;
+      if(cm[0]===a&&cm[1]){
+        const t=cm[1].t||cm[1].v;
+        return t!=null?String(t):null;
+      }
     }
   }
   return null;
@@ -260,7 +264,7 @@ function parseData(f){
         nombre:String(nom).trim(),
         grupo:cv(wsM,r,colG),
         color:cellBg(wsM,r,colG),
-        nota:cellComment(wsM,r,colG)||''
+        nota:String(cellComment(wsM,r,colG)||'')
       });
     }
   }
@@ -274,7 +278,7 @@ function parseData(f){
         placa:String(placa).trim(),
         grupo:cv(wsM,r,colV),
         color:cellBg(wsM,r,colV),
-        nota:cellComment(wsM,r,colV)||''
+        nota:String(cellComment(wsM,r,colV)||'')
       });
     }
   }
@@ -288,7 +292,7 @@ function parseData(f){
         placa:String(placa).trim(),
         grupo:cv(wsM,r,colV),
         color:cellBg(wsM,r,colV),
-        nota:cellComment(wsM,r,colV)||''
+        nota:String(cellComment(wsM,r,colV)||'')
       });
     }
   }
@@ -351,7 +355,7 @@ function preview(){
 // CONSTRUIR EXCEL - FORMATO EXACTO DEL EJEMPLO
 // ══════════════════════════════════════════════════════
 function hex2argb(hex){
-  if(!hex)return 'FFFFFFFF';
+  if(!hex||typeof hex!=='string')return 'FFFFFFFF';
   const h=hex.replace('#','').toUpperCase();
   return h.length===6?'FF'+h:h.length===8?h:'FFFFFFFF';
 }
@@ -367,15 +371,19 @@ function buildExcel(data){
 
   function S(r,c,v,s){
     const a=XLSX.utils.encode_cell({r,c});
-    const t=typeof v==='number'?'n':'s';
-    ws[a]={v:v==null?'':v,t};
-    if(s)ws[a].s=s;
+    // Always write as string to avoid numFmt processing issues in SheetJS
+    let val=(v==null||v===undefined)?'':String(v);
+    // Prevent SheetJS formula interpretation
+    if(val.length>0 && '=+@-'.indexOf(val[0])>=0) val="'"+val;
+    const cell={v:val, t:'s', w:val};
+    if(s) cell.s=s;
+    ws[a]=cell;
   }
   function M(r1,c1,r2,c2){merges.push({s:{r:r1,c:c1},e:{r:r2,c:c2}})}
 
-  const BDR={style:'medium',color:{rgb:'FF000000'}};
-  const BDRTH={style:'thin',color:{rgb:'FF000000'}};
-  const BDRM=(w='medium')=>({top:{style:w,color:{rgb:'FF000000'}},bottom:{style:w,color:{rgb:'FF000000'}},left:{style:w,color:{rgb:'FF000000'}},right:{style:w,color:{rgb:'FF000000'}}});
+  const BDRM=(w)=>{const s=w||'medium',c={rgb:'FF000000'};
+    return {top:{style:s,color:{rgb:'FF000000'}},bottom:{style:s,color:{rgb:'FF000000'}},
+            left:{style:s,color:{rgb:'FF000000'}},right:{style:s,color:{rgb:'FF000000'}}};};
 
   const SBASE={alignment:{horizontal:'center',vertical:'center',wrapText:true}};
   const SBOLD={font:{bold:true,sz:10},alignment:{horizontal:'center',vertical:'center',wrapText:true}};
@@ -388,7 +396,7 @@ function buildExcel(data){
   }
   function sData(bgHex,fc,bold){
     const s={alignment:{horizontal:'center',vertical:'center',wrapText:true},border:BDRM('thin')};
-    const bg=hex2argb(bgHex);
+    const bg=hex2argb(typeof bgHex==='string'?bgHex:null);
     if(bg&&bg!=='FFFFFFFF')s.fill={fgColor:{rgb:bg},patternType:'solid'};
     const f={sz:10};if(bold)f.bold=true;
     if(fc&&fc!=='#000000')f.color={rgb:hex2argb(fc)};
@@ -529,7 +537,7 @@ function buildExcel(data){
 
       // Notas del personal del bloque
       const notasPers=[...new Set(data.personal.slice(pi,fin+1).filter(px=>px.nota).map(px=>px.nota))].join('\n');
-      const todasNotas=[notasVeh,notasPers].filter(Boolean).join('\n');
+      const todasNotas=[String(notasVeh||''),String(notasPers||'')].filter(s=>s.length>0).join('\n');
 
       // Escribir filas del bloque
       for(let i=0;i<cnt;i++){
@@ -612,7 +620,13 @@ function generar(){
       document.getElementById('bdl').style.display='inline-flex';
       document.getElementById('bgen').disabled=false;
       setTimeout(()=>prog(0),800);
-    }catch(e){alert2('Error: '+e.message,'e');log('✗ '+e.message);document.getElementById('bgen').disabled=false;prog(0)}
+    }catch(e){
+    const msg=e&&e.message?e.message:String(e);
+    alert2('Error: '+msg,'e');
+    log('✗ '+msg);
+    if(e&&e.stack)log('Stack: '+e.stack.split('\n').slice(0,3).join(' | '));
+    document.getElementById('bgen').disabled=false;prog(0)
+  }
   },80);
 }
 
