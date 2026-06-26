@@ -376,7 +376,7 @@ function buildExcel(data){
     // Prevent SheetJS formula interpretation
     if(val.length>0 && '=+@-'.indexOf(val[0])>=0) val="'"+val;
     const cell={v:val, t:'s', w:val};
-    if(s) cell.s=s;
+    if(s) cell.s=JSON.parse(JSON.stringify(s));  // deep clone to prevent shared refs
     ws[a]=cell;
   }
   function M(r1,c1,r2,c2){merges.push({s:{r:r1,c:c1},e:{r:r2,c:c2}})}
@@ -598,7 +598,7 @@ function buildExcel(data){
     alignment:{horizontal:'center',vertical:'center'}
   });
 
-  XLSX.utils.book_append_sheet(wb2,'Hoja1',ws);
+  XLSX.utils.book_append_sheet(wb2,ws,'Hoja1');
   log('✓ Excel listo. Filas personal:'+rowP);
   return wb2;
 }
@@ -634,7 +634,17 @@ function descargar(){
   if(!RESULT)return;
   const f=getFecha();
   const nombre='PROGRAMA_'+DIAS[f.getDay()]+'_'+f.toLocaleDateString('es-PE',{day:'2-digit',month:'2-digit',year:'2-digit'}).replace(/\//g,'_')+'.xlsx';
-  XLSX.writeFile(RESULT,nombre,{bookType:'xlsx',type:'binary',cellStyles:true});
+  try{
+    XLSX.writeFile(RESULT,nombre,{bookType:'xlsx',type:'binary',cellStyles:true});
+  }catch(err){
+    log('writeFile error: '+err.message+' | Trying without styles...');
+    try{
+      XLSX.writeFile(RESULT,nombre,{bookType:'xlsx',type:'binary'});
+    }catch(err2){
+      alert2('Error al guardar: '+err2.message,'e');
+      log('Fatal: '+err2.message);
+    }
+  }
 }
 
 function reset(){
