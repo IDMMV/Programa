@@ -114,7 +114,7 @@ footer{text-align:center;padding:1.4rem;font-size:.76rem;color:var(--txt2)}
 
     <div class="unit-config-section" id="unitConfigSection">
       <div class="unit-section-title">Unidades sin cuadrilla o con condición especial</div>
-      <div class="helper">Aquí aparecen automáticamente las unidades con grupo vacío, Superv, Apoyo, Ins u otra condición no numérica. Puedes mantener la condición, asignarlas a cualquiera de las cuadrillas visibles o completar su horario y sede manualmente. Los comentarios del Excel se muestran solo para las unidades.</div>
+      <div class="helper">Aquí aparecen automáticamente las unidades con grupo vacío, Superv, Apoyo, Ins u otra condición no numérica. Puedes mantener la condición, asignarlas a cualquiera de las cuadrillas visibles o completar su horario y sede manualmente. Los comentarios del Excel se muestran solo para las unidades. La sede se asigna automáticamente: grupos 1 y 2 en VITARTE; los demás en SAN JUAN.</div>
       <div class="unit-config-wrap">
         <table class="unit-config">
           <thead><tr><th>Tipo</th><th>Unidad</th><th>Grupo / condición</th><th>Horario</th><th>Sede</th><th>Comentario del Excel</th><th>Acciones</th></tr></thead>
@@ -204,12 +204,14 @@ function norm(v){return String(v??'').replace(/\s+/g,' ').trim();}
 function normKey(v){return norm(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();}
 function isBlank(v){return v===null||v===undefined||norm(v)==='';}
 function numGroup(v){const n=Number(v);return Number.isFinite(n)&&n>=1&&n<=MAX_GROUPS?n:null;}
+function sedeAutomaticaPorGrupo(v){const g=numGroup(v);return (g===1||g===2)?'VITARTE':'SAN JUAN';}
+function ordenarUnidadesPorGrupo(arr){return (arr||[]).map((v,i)=>({v,i,g:numGroup(v.grupo)})).sort((a,b)=>{if(a.g&&b.g)return a.g-b.g||a.i-b.i;if(a.g)return -1;if(b.g)return 1;return a.i-b.i;}).map(x=>x.v);}
 function canonicalPrv(v){const s=norm(v);if(!s)return '';const k=normKey(s);const m=k.match(/^([1-4])(?:\s*PVT(?:\((?:SJ|VIT)\))?)?$/);return m?m[1]+'PVT':s;}
 function normalizarConfigValores(config){
   const out=deepClone(config||{});
   for(let g=1;g<=MAX_GROUPS;g++){
     if(!out[g])out[g]={base:'',coord:'',horario:'',trabajo:'',prv:'',zona:''};
-    out[g].base=norm(out[g].base);out[g].coord=norm(out[g].coord);out[g].horario=norm(out[g].horario);
+    out[g].base=sedeAutomaticaPorGrupo(g);out[g].coord=norm(out[g].coord);out[g].horario=norm(out[g].horario);
     out[g].trabajo=norm(out[g].trabajo);out[g].prv=canonicalPrv(out[g].prv);out[g].zona=norm(out[g].zona);
   }
   return out;
@@ -220,7 +222,7 @@ function dataGroupIds(data){const ids=[];if(data)[...(data.personal||[]),...(dat
 function configGroupIds(config){return normalizeGroupIds(Object.keys(config||{}).filter(k=>configHasValues(config[k])));}
 function getVisibleGroupIds(){return normalizeGroupIds(VISIBLE_GROUP_IDS);}
 function unitGroupOptions(){return getVisibleGroupIds().map(String).concat(UNIT_STATUS_OPTIONS);}
-function configHasValues(c){return !!c&&['base','coord','horario','trabajo','prv','zona'].some(k=>norm(c[k]));}
+function configHasValues(c){return !!c&&['coord','horario','trabajo','prv','zona'].some(k=>norm(c[k]));}
 function maxGroupInConfig(config){const ids=configGroupIds(config);return ids.length?Math.max(...ids):0;}
 function maxGroupInData(data){const ids=dataGroupIds(data);return ids.length?Math.max(...ids):0;}
 function setVisibleGroupsFromSource(data,preferred){
@@ -626,7 +628,7 @@ function agregarCuadrilla(){
   let nuevo=1;while(ids.includes(nuevo)&&nuevo<=MAX_GROUPS)nuevo++;
   if(nuevo>MAX_GROUPS){alerta('No hay más números de cuadrilla disponibles.','w');return;}
   VISIBLE_GROUP_IDS=normalizeGroupIds([...ids,nuevo]);VISIBLE_GROUP_COUNT=VISIBLE_GROUP_IDS.length;
-  if(!GROUP_CONFIG[nuevo])GROUP_CONFIG[nuevo]={base:'',coord:'',horario:'',trabajo:'',prv:'',zona:''};
+  if(!GROUP_CONFIG[nuevo])GROUP_CONFIG[nuevo]={base:sedeAutomaticaPorGrupo(nuevo),coord:'',horario:'',trabajo:'',prv:'',zona:''};
   renderConfig();renderUnitConfig();guardarMatriz(true);RESULT_BUFFER=null;$('bdl').style.display='none';
   alerta('Cuadrilla '+nuevo+' agregada. Ya puedes completar sus datos.','s');
 }
@@ -648,6 +650,7 @@ function modificarCuadrilla(g){
   if(nuevo===g)return;
   if(getVisibleGroupIds().includes(nuevo)){alerta('La cuadrilla '+nuevo+' ya existe.','w');return;}
   GROUP_CONFIG[nuevo]=deepClone(GROUP_CONFIG[g]||{base:'',coord:'',horario:'',trabajo:'',prv:'',zona:''});
+  GROUP_CONFIG[nuevo].base=sedeAutomaticaPorGrupo(nuevo);
   GROUP_CONFIG[g]={base:'',coord:'',horario:'',trabajo:'',prv:'',zona:''};
   if(DATA){
     [...(DATA.personal||[]),...(DATA.brazos||[]),...(DATA.camionetas||[])].forEach(x=>{if(numGroup(x.grupo)===g){x.grupo=nuevo;x.color=groupColor(nuevo,null);}});
@@ -679,7 +682,7 @@ function renderConfig(){
     const c=GROUP_CONFIG[g]||{};const tr=document.createElement('tr'),bg=groupColor(g,null);
     tr.innerHTML=`
       <td><span class="group-dot" style="background:${bg};color:#111">${g}</span></td>
-      <td>${selectEditor(g,'base',c.base,'base-input')}</td>
+      <td><input class="config-input unit-auto" value="${esc(sedeAutomaticaPorGrupo(g))} (automático)" disabled></td>
       <td>${selectEditor(g,'coord',c.coord,'coord-input')}</td>
       <td>${selectEditor(g,'horario',c.horario,'schedule-input')}</td>
       <td><input class="config-input work-input" data-group="${g}" data-field="trabajo" value="${esc(c.trabajo)}" placeholder="Escribir tipo de trabajo"></td>
@@ -692,7 +695,7 @@ function renderConfig(){
 }
 function aplicarCambioMatriz(g,field,value){
   if(!GROUP_CONFIG[g])GROUP_CONFIG[g]={base:'',coord:'',horario:'',trabajo:'',prv:'',zona:''};
-  GROUP_CONFIG[g][field]=field==='prv'?canonicalPrv(value):value;
+  GROUP_CONFIG[g][field]=field==='base'?sedeAutomaticaPorGrupo(g):(field==='prv'?canonicalPrv(value):value);
   guardarMatriz(true);RESULT_BUFFER=null;$('bdl').style.display='none';if(DATA){renderUnitConfig();renderPreview();}
 }
 $('configBody').addEventListener('change',e=>{
@@ -719,7 +722,7 @@ function unidadEfectiva(v){
   const special=!numGroup(v.grupo),u=special?(UNIT_CONFIG[unitKey(v)]||{grupo:norm(v.grupo),horario:'',base:'',placa:v.placa,deleted:false}):null;
   if(special&&u.deleted)return null;
   const grupo=special?u.grupo:v.grupo,g=numGroup(grupo),placa=special?(norm(u.placa)||v.placa):v.placa;
-  return {...v,placa,grupo,horario:g?(GROUP_CONFIG[g]?.horario||''):(u?.horario||''),base:g?(GROUP_CONFIG[g]?.base||''):(u?.base||'')};
+  return {...v,placa,grupo,horario:g?(GROUP_CONFIG[g]?.horario||''):(u?.horario||''),base:sedeAutomaticaPorGrupo(grupo)};
 }
 function unidadesEfectivas(data){return data?[...data.brazos,...data.camionetas].map(unidadEfectiva).filter(Boolean):[];}
 function unitSelectEditor(key,field,current,options,label,cssClass=''){
@@ -733,14 +736,15 @@ function renderUnitConfig(){
     const key=unitKey(v),u=UNIT_CONFIG[key]||(UNIT_CONFIG[key]={grupo:norm(v.grupo),horario:'',base:'',placa:v.placa,deleted:false}),g=numGroup(u.grupo),tr=document.createElement('tr');
     if(u.placa===undefined)u.placa=v.placa;
     const horario=g?`<input class="config-input unit-auto" value="Según cuadrilla ${g}: ${esc(GROUP_CONFIG[g]?.horario||'vacío')}" disabled>`:unitSelectEditor(key,'horario',u.horario,FIELD_OPTIONS.horario,'horario','schedule-input');
-    const base=g?`<input class="config-input unit-auto" value="Según cuadrilla ${g}: ${esc(GROUP_CONFIG[g]?.base||'vacío')}" disabled>`:unitSelectEditor(key,'base',u.base,FIELD_OPTIONS.base,'sede','base-input');
+    const sedeAuto=sedeAutomaticaPorGrupo(u.grupo);
+    const base=`<input class="config-input unit-auto" value="${esc(sedeAuto)} (automático)" disabled>`;
     tr.innerHTML=`<td class="unit-type">${esc(v.tipo)}</td><td class="unit-plate">${esc(u.placa||v.placa)}</td><td>${unitSelectEditor(key,'grupo',u.grupo,unitGroupOptions(),'grupo o condición','base-input')}</td><td>${horario}</td><td>${base}</td><td class="unit-comment">${esc(v.nota||'')}</td><td class="actions-col"><div class="row-actions"><button type="button" class="icon-btn edit" onclick="modificarUnidad('${encodeURIComponent(key)}')">✏️ Modificar</button><button type="button" class="icon-btn delete" onclick="eliminarUnidad('${encodeURIComponent(key)}')">🗑️ Eliminar</button></div></td>`;
     body.appendChild(tr);
   });
 }
 function aplicarCambioUnidad(key,field,value){
   if(!UNIT_CONFIG[key])UNIT_CONFIG[key]={grupo:'',horario:'',base:'',placa:'',deleted:false};
-  UNIT_CONFIG[key][field]=value;RESULT_BUFFER=null;$('bdl').style.display='none';if(DATA)renderPreview();
+  UNIT_CONFIG[key][field]=value;if(field==='grupo')UNIT_CONFIG[key].base=sedeAutomaticaPorGrupo(value);RESULT_BUFFER=null;$('bdl').style.display='none';if(DATA)renderPreview();
 }
 function modificarUnidad(key){
   key=decodeURIComponent(key);const u=UNIT_CONFIG[key];if(!u)return;
@@ -793,7 +797,7 @@ function renderPreview(){
   </div>`;
 }
 function renderLeft(data){
-  const brazos=data.brazos.map(unidadEfectiva).filter(Boolean),camionetas=data.camionetas.map(unidadEfectiva).filter(Boolean);
+  const brazos=ordenarUnidadesPorGrupo(data.brazos.map(unidadEfectiva).filter(Boolean)),camionetas=ordenarUnidadesPorGrupo(data.camionetas.map(unidadEfectiva).filter(Boolean));
   const vehicleTable=(title,arr)=>{
     let rows=arr.map(v=>{
       const g=numGroup(v.grupo),bg=g?groupColor(g,v.color):'#fff';
@@ -995,7 +999,7 @@ async function buildExcel(data){
     if(!arr.length){setMerged(ws,`A${r}:E${r}`,'Sin unidades registradas',{fontColor:'#000000'});r++;}
     return r;
   }
-  const brazosExcel=data.brazos.map(unidadEfectiva).filter(Boolean),camionetasExcel=data.camionetas.map(unidadEfectiva).filter(Boolean);
+  const brazosExcel=ordenarUnidadesPorGrupo(data.brazos.map(unidadEfectiva).filter(Boolean)),camionetasExcel=ordenarUnidadesPorGrupo(data.camionetas.map(unidadEfectiva).filter(Boolean));
   let leftRow=3;leftRow=unitSection('BRAZO HIDRÁULICO',brazosExcel,leftRow)+2;leftRow=unitSection('CAMIONETA',camionetasExcel,leftRow)+2;
 
   // Resumen de unidades.
@@ -1024,14 +1028,14 @@ async function buildExcel(data){
   const cfgGroupIds=getVisibleGroupIds();
   cfgGroupIds.forEach((g,idx)=>{
     const c=GROUP_CONFIG[g],r=idx+2,bg=groupColor(g,null);
-    [g,c.base,c.coord,c.horario,c.trabajo,c.prv,c.zona].forEach((v,i)=>{cfg.getCell(r,i+1).value=v;styleCell(cfg.getCell(r,i+1),{fill:i===0?bg:null,bold:i===0,fontColor:'#000000'});});
+    [g,sedeAutomaticaPorGrupo(g),c.coord,c.horario,c.trabajo,c.prv,c.zona].forEach((v,i)=>{cfg.getCell(r,i+1).value=v;styleCell(cfg.getCell(r,i+1),{fill:i===0?bg:null,bold:i===0,fontColor:'#000000'});});
   });
   const lists=book.addWorksheet('LISTAS');
   const listData={A:['BASE','VITARTE','SAN JUAN','CAÑETE','OTRO'],B:['COORD.','I.D','S.L','D.F','U.T','O.S','B.H','E.B','OTRO'],C:['HORARIO','07:15 a 17:00','06:00 a 18:00','06:30 a 18:00','OTRO'],D:['PRV','1PVT','2PVT','3PVT','4PVT','OTRO'],E:['ZONA','CAÑETE','SAN JUAN','VITARTE','OTRO']};
   Object.entries(listData).forEach(([col,vals])=>vals.forEach((v,i)=>lists.getCell(`${col}${i+1}`).value=v));
   lists.state='veryHidden';
   for(let r=2;r<=cfgGroupIds.length+1;r++){
-    cfg.getCell(r,2).dataValidation={type:'list',allowBlank:true,showErrorMessage:false,formulae:['LISTAS!$A$2:$A$5']};
+    cfg.getCell(r,2).protection={locked:true};
     cfg.getCell(r,3).dataValidation={type:'list',allowBlank:true,showErrorMessage:false,formulae:['LISTAS!$B$2:$B$9']};
     cfg.getCell(r,4).dataValidation={type:'list',allowBlank:true,showErrorMessage:false,formulae:['LISTAS!$C$2:$C$5']};
     // TIPO DE TRABAJO (columna E) queda libre y editable.
