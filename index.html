@@ -52,7 +52,7 @@ table.config td{padding:.42rem .48rem;border-bottom:1px solid #e5e7eb;vertical-a
 .excel-table{width:100%;border-collapse:collapse;table-layout:fixed;background:#fff}.excel-table th,.excel-table td{border:1px solid #111;padding:3px 4px;vertical-align:middle;text-align:center;line-height:1.15;overflow-wrap:anywhere}.excel-table th{font-weight:800}.section-title{background:#d9d9d9;text-align:left!important;font-weight:800!important}.left-section{margin-bottom:16px}.left-table th,.left-table td{height:19px}.summary-table td{height:20px}.right-table th,.right-table td{height:19px}.right-table tr:nth-child(1) th,.right-table tr:nth-child(2) th{background:#d9d9d9}.excel-table td:empty{border:none!important}.right-table .name{text-align:left;padding-left:5px}.right-table .grouped-detail{vertical-align:middle}.right-table .blank-cell{border:none!important;background:transparent!important}.work-cell{text-align:center!important;font-weight:650}.status-cell{font-weight:700}
 .middle-column{min-height:650px;position:relative;padding-top:1px}.work-card{border:1px solid rgba(0,0,0,.28);padding:10px 9px;margin:8px 0;text-align:center;font-weight:800;line-height:1.3;min-height:42px;display:flex;align-items:center;justify-content:center;color:#111!important}.work-subtitle{text-align:center;font-weight:800;font-size:12px;margin:14px 0 5px}.general-note{font-size:12px;margin:5px 0;text-align:center;line-height:1.25;padding:8px 7px;min-height:38px;display:flex;align-items:center;justify-content:center;white-space:pre-wrap;color:#111!important}.general-note.no-fill{border:1px solid #d1d5db;background:#fff}.coord-label{display:block;font-weight:700;font-size:11px;line-height:1.05;margin-top:2px;color:#111!important}
 .empty-message{padding:2rem;text-align:center;color:var(--txt2);font-size:.86rem}.muted{color:#6b7280}.small{font-size:.72rem}
-.actions{display:flex;gap:.55rem;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;padding:.58rem 1rem;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;border:none;transition:.15s;white-space:nowrap}.btn:disabled{opacity:.42;cursor:not-allowed}.btn-blue{background:var(--azul2);color:#fff}.btn-blue:not(:disabled):hover{background:var(--azul)}.btn-green{background:var(--verde);color:#fff}.btn-green:not(:disabled):hover{background:#085041}.btn-gray{background:#fff;color:var(--txt);border:1px solid var(--borde)}.btn-gray:hover{background:#f4f6f9}.btn-amber{background:#f59e0b;color:#111}.btn-sm{padding:.45rem .7rem;font-size:.75rem}
+.actions{display:flex;gap:.55rem;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;padding:.58rem 1rem;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;border:none;transition:.15s;white-space:nowrap}.btn:disabled{opacity:.42;cursor:not-allowed}.btn-blue{background:var(--azul2);color:#fff}.btn-blue:not(:disabled):hover{background:var(--azul)}.btn-green{background:var(--verde);color:#fff}.btn-green:not(:disabled):hover{background:#085041}.btn-gray{background:#fff;color:var(--txt);border:1px solid var(--borde)}.btn-gray:hover{background:#f4f6f9}.btn-amber{background:#f59e0b;color:#111}.btn-sm{padding:.45rem .7rem;font-size:.75rem}.row-actions{display:flex;gap:.35rem;align-items:center;justify-content:center;white-space:nowrap}.icon-btn{border:1px solid #cbd5e1;background:#fff;color:#111;border-radius:7px;padding:.38rem .55rem;font-size:.73rem;font-weight:750;cursor:pointer}.icon-btn:hover{background:#f1f5f9}.icon-btn.edit{border-color:#60a5fa}.icon-btn.delete{border-color:#fca5a5;color:#991b1b}.icon-btn.delete:hover{background:#fef2f2}.actions-col{min-width:150px}
 .alert{padding:.72rem .9rem;border-radius:8px;font-size:.82rem;margin-top:.7rem;display:none;align-items:flex-start;gap:.45rem}.alert.show{display:flex}.ai{background:#ebf3fb;color:#1f4e79;border:1px solid #b5d4f4}.as{background:#e6f4f1;color:#085041;border:1px solid #9fe1cb}.ae{background:#fef2f2;color:#7f1d1d;border:1px solid #fecaca}.aw{background:#fff7df;color:#7c4b00;border:1px solid #f5d58c}
 .progress{height:5px;background:#e5e7eb;border-radius:5px;overflow:hidden;margin-top:.65rem;display:none}.pbar{height:100%;background:var(--azul2);transition:width .25s}.log{background:#172033;color:#a7e3b5;font-family:Consolas,monospace;font-size:.7rem;padding:.6rem .75rem;border-radius:8px;max-height:100px;overflow:auto;display:none;margin-top:.6rem;white-space:pre-wrap}
 .fullscreen-sheet{position:fixed!important;inset:0;z-index:9999;background:#cbd5e1;padding:12px;max-height:none!important;border-radius:0!important}.fullscreen-sheet .program-sheet{transform-origin:top left}.close-full{display:none;position:fixed;z-index:10000;right:20px;top:16px;background:#111827;color:#fff;border:none;border-radius:50%;width:38px;height:38px;font-size:20px;cursor:pointer}.close-full.show{display:block}
@@ -107,7 +107,7 @@ footer{text-align:center;padding:1.4rem;font-size:.76rem;color:var(--txt2)}
     </div>
     <div class="config-wrap">
       <table class="config">
-        <thead><tr><th>Cuadrilla</th><th>Base</th><th>Coord.</th><th>Horario</th><th>Tipo de trabajo</th><th>PRV</th><th>Zona</th></tr></thead>
+        <thead><tr><th>Cuadrilla</th><th>Base</th><th>Coord.</th><th>Horario</th><th>Tipo de trabajo</th><th>PRV</th><th>Zona</th><th>Acciones</th></tr></thead>
         <tbody id="configBody"></tbody>
       </table>
     </div>
@@ -117,7 +117,7 @@ footer{text-align:center;padding:1.4rem;font-size:.76rem;color:var(--txt2)}
       <div class="helper">Aquí aparecen automáticamente las unidades con grupo vacío, Superv, Apoyo, Ins u otra condición no numérica. Puedes mantener la condición, asignarlas a cualquiera de las cuadrillas visibles o completar su horario y sede manualmente. Los comentarios del Excel se muestran solo para las unidades.</div>
       <div class="unit-config-wrap">
         <table class="unit-config">
-          <thead><tr><th>Tipo</th><th>Unidad</th><th>Grupo / condición</th><th>Horario</th><th>Sede</th><th>Comentario del Excel</th></tr></thead>
+          <thead><tr><th>Tipo</th><th>Unidad</th><th>Grupo / condición</th><th>Horario</th><th>Sede</th><th>Comentario del Excel</th><th>Acciones</th></tr></thead>
           <tbody id="unitConfigBody"></tbody>
         </table>
       </div>
@@ -167,6 +167,7 @@ let WB=null, DATA=null, RESULT_BUFFER=null, FILE_NAME='', LOGS=[];
 let ACTIVE_SOURCE=null, LOADED_GENERATED=false;
 let SOURCE_CONFIG=null, UNIT_CONFIG={};
 let VISIBLE_GROUP_COUNT=1;
+let VISIBLE_GROUP_IDS=[1];
 const MAX_GROUPS=20;
 const DIAS=['DOMINGO','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES','SÁBADO'];
 const MESES=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SET','OCT','NOV','DIC'];
@@ -214,11 +215,22 @@ function normalizarConfigValores(config){
   return out;
 }
 function groupColor(g,sourceColor){return sourceColor||GROUP_COLORS[g]||EXTRA_GROUP_COLORS[(Math.max(10,g)-10)%EXTRA_GROUP_COLORS.length]||'#e5e7eb';}
-function unitGroupOptions(){return Array.from({length:VISIBLE_GROUP_COUNT},(_,i)=>String(i+1)).concat(UNIT_STATUS_OPTIONS);}
+function normalizeGroupIds(ids){return [...new Set((ids||[]).map(numGroup).filter(Boolean))].sort((a,b)=>a-b);}
+function dataGroupIds(data){const ids=[];if(data)[...(data.personal||[]),...(data.brazos||[]),...(data.camionetas||[])].forEach(x=>{const g=numGroup(x.grupo);if(g)ids.push(g);});return normalizeGroupIds(ids);}
+function configGroupIds(config){return normalizeGroupIds(Object.keys(config||{}).filter(k=>configHasValues(config[k])));}
+function getVisibleGroupIds(){return normalizeGroupIds(VISIBLE_GROUP_IDS);}
+function unitGroupOptions(){return getVisibleGroupIds().map(String).concat(UNIT_STATUS_OPTIONS);}
 function configHasValues(c){return !!c&&['base','coord','horario','trabajo','prv','zona'].some(k=>norm(c[k]));}
-function maxGroupInConfig(config){let m=0;Object.keys(config||{}).forEach(k=>{const g=numGroup(k);if(g&&configHasValues(config[k]))m=Math.max(m,g);});return m;}
-function maxGroupInData(data){if(!data)return 0;let m=0;[...(data.personal||[]),...(data.brazos||[]),...(data.camionetas||[])].forEach(x=>{const g=numGroup(x.grupo);if(g)m=Math.max(m,g);});return m;}
-function setVisibleGroupsFromSource(data,preferred){const detected=Math.max(Number(preferred)||0,maxGroupInConfig(SOURCE_CONFIG),maxGroupInConfig(GROUP_CONFIG),maxGroupInData(data));VISIBLE_GROUP_COUNT=Math.max(1,Math.min(MAX_GROUPS,detected||1));}
+function maxGroupInConfig(config){const ids=configGroupIds(config);return ids.length?Math.max(...ids):0;}
+function maxGroupInData(data){const ids=dataGroupIds(data);return ids.length?Math.max(...ids):0;}
+function setVisibleGroupsFromSource(data,preferred){
+  let ids=Array.isArray(preferred)?normalizeGroupIds(preferred):dataGroupIds(data);
+  if(!ids.length)ids=configGroupIds(SOURCE_CONFIG);
+  if(!ids.length)ids=configGroupIds(GROUP_CONFIG);
+  if(!ids.length&&Number(preferred)>0)ids=Array.from({length:Math.min(MAX_GROUPS,Number(preferred))},(_,i)=>i+1);
+  VISIBLE_GROUP_IDS=normalizeGroupIds(ids.length?ids:[1]);
+  VISIBLE_GROUP_COUNT=VISIBLE_GROUP_IDS.length;
+}
 function ymd(f){return [f.getFullYear(),String(f.getMonth()+1).padStart(2,'0'),String(f.getDate()).padStart(2,'0')].join('-');}
 function dateFromYmd(v){const p=String(v||'').slice(0,10).split('-').map(Number);return p.length===3&&p.every(Number.isFinite)?new Date(p[0],p[1]-1,p[2]):new Date();}
 function textColor(){return '#111111';}
@@ -344,13 +356,13 @@ async function reconstruirLibroGenerado(buffer,fileName){
       generalNotes.push({text,color:colorCeldaExcelJs(ws.getCell(r,6)),sourceRow:r});
     }
     const data={fecha:ymd(fecha),dia:DIAS[fecha.getDay()],sheetName:'PROGRAMA',personal,brazos,camionetas,generalNotes};
-    const unitConfig={};[...brazos,...camionetas].forEach(v=>{if(!numGroup(v.grupo))unitConfig[unitKey(v)]={grupo:v.grupo,horario:v.horario||'',base:v.base||''};});
-    return {version:0,fecha:ymd(fecha),data,groupConfig,unitConfig,visibleGroupCount:Math.max(1,maxGroupInConfig(groupConfig),maxGroupInData(data))};
+    const unitConfig={};[...brazos,...camionetas].forEach(v=>{if(!numGroup(v.grupo))unitConfig[unitKey(v)]={grupo:v.grupo,horario:v.horario||'',base:v.base||'',placa:v.placa,deleted:false};});
+    return {version:0,fecha:ymd(fecha),data,groupConfig,unitConfig,visibleGroupIds:dataGroupIds(data),visibleGroupCount:Math.max(1,maxGroupInConfig(groupConfig),maxGroupInData(data))};
   }catch(err){log('⚠ No se pudo reconstruir el programa descargado: '+err.message);return null;}
 }
 function completarUnidadesGuardadas(data,stored){
   UNIT_CONFIG=deepClone(stored||{});
-  unidadesEspeciales(data).forEach(v=>{const k=unitKey(v);if(!UNIT_CONFIG[k])UNIT_CONFIG[k]={grupo:norm(v.grupo),horario:'',base:''};});
+  unidadesEspeciales(data).forEach(v=>{const k=unitKey(v);if(!UNIT_CONFIG[k])UNIT_CONFIG[k]={grupo:norm(v.grupo),horario:'',base:'',placa:v.placa,deleted:false};else{if(UNIT_CONFIG[k].placa===undefined)UNIT_CONFIG[k].placa=v.placa;if(UNIT_CONFIG[k].deleted===undefined)UNIT_CONFIG[k].deleted=false;}});
 }
 function cargarLibroGenerado(payload){
   if(!payload||!payload.data)throw new Error('El archivo generado no contiene datos recuperables.');
@@ -364,7 +376,7 @@ function cargarLibroGenerado(payload){
   if(editedConfig)SOURCE_CONFIG=normalizarConfigValores(mergeConfig(SOURCE_CONFIG,editedConfig));
   GROUP_CONFIG=deepClone(SOURCE_CONFIG);
   completarUnidadesGuardadas(DATA,payload.unitConfig||{});
-  setVisibleGroupsFromSource(DATA,payload.visibleGroupCount);
+  setVisibleGroupsFromSource(DATA,payload.visibleGroupIds||payload.visibleGroupCount);
   $('fdate').value=ymd(DATA.fecha);$('dchip').textContent=DIAS[DATA.fecha.getDay()];$('dchip').style.display='inline-flex';
   $('sheetChip').textContent='Archivo generado reabierto para corrección';$('sheetChip').style.display='inline-flex';
   $('configCard').style.display='block';$('previewCard').style.display='block';
@@ -600,20 +612,50 @@ function mergeConfig(base,extra){
   Object.keys(extra||{}).forEach(k=>{if(out[k])out[k]={...out[k],...extra[k]};});
   return out;
 }
-function cargarMatrizGuardada(){try{const raw=localStorage.getItem('programaDRE_grupos_v6');if(!raw)return null;const parsed=JSON.parse(raw);if(parsed&&parsed.config){VISIBLE_GROUP_COUNT=Math.max(1,Math.min(MAX_GROUPS,Number(parsed.visibleGroupCount)||1));return parsed.config;}return parsed;}catch{return null;}}
+function cargarMatrizGuardada(){try{const raw=localStorage.getItem('programaDRE_grupos_v6');if(!raw)return null;const parsed=JSON.parse(raw);if(parsed&&parsed.config){VISIBLE_GROUP_IDS=normalizeGroupIds(parsed.visibleGroupIds||[]);if(!VISIBLE_GROUP_IDS.length&&Number(parsed.visibleGroupCount)>0)VISIBLE_GROUP_IDS=Array.from({length:Math.min(MAX_GROUPS,Number(parsed.visibleGroupCount))},(_,i)=>i+1);VISIBLE_GROUP_COUNT=VISIBLE_GROUP_IDS.length||1;return parsed.config;}return parsed;}catch{return null;}}
 function guardarMatriz(silent=false){
-  try{localStorage.setItem('programaDRE_grupos_v6',JSON.stringify({config:GROUP_CONFIG,visibleGroupCount:VISIBLE_GROUP_COUNT}));if(!silent)alerta('Matriz guardada en este navegador.','s');}
+  try{localStorage.setItem('programaDRE_grupos_v6',JSON.stringify({config:GROUP_CONFIG,visibleGroupIds:getVisibleGroupIds(),visibleGroupCount:getVisibleGroupIds().length}));if(!silent)alerta('Matriz guardada en este navegador.','s');}
   catch{if(!silent)alerta('No se pudo guardar la matriz en el navegador.','w');}
 }
 function restaurarMatriz(){
   GROUP_CONFIG=normalizarConfigValores(deepClone(SOURCE_CONFIG||DEFAULT_CONFIG));inicializarUnidades(DATA);setVisibleGroupsFromSource(DATA);renderConfig();renderUnitConfig();renderPreview();guardarMatriz(true);RESULT_BUFFER=null;$('bdl').style.display='none';alerta('Se restauraron exactamente los valores del Excel; los campos vacíos siguen vacíos.','i');
 }
 function agregarCuadrilla(){
-  if(VISIBLE_GROUP_COUNT>=MAX_GROUPS){alerta('Se alcanzó el máximo de '+MAX_GROUPS+' cuadrillas.','w');return;}
-  VISIBLE_GROUP_COUNT++;
-  if(!GROUP_CONFIG[VISIBLE_GROUP_COUNT])GROUP_CONFIG[VISIBLE_GROUP_COUNT]={base:'',coord:'',horario:'',trabajo:'',prv:'',zona:''};
+  const ids=getVisibleGroupIds();
+  if(ids.length>=MAX_GROUPS){alerta('Se alcanzó el máximo de '+MAX_GROUPS+' cuadrillas.','w');return;}
+  let nuevo=1;while(ids.includes(nuevo)&&nuevo<=MAX_GROUPS)nuevo++;
+  if(nuevo>MAX_GROUPS){alerta('No hay más números de cuadrilla disponibles.','w');return;}
+  VISIBLE_GROUP_IDS=normalizeGroupIds([...ids,nuevo]);VISIBLE_GROUP_COUNT=VISIBLE_GROUP_IDS.length;
+  if(!GROUP_CONFIG[nuevo])GROUP_CONFIG[nuevo]={base:'',coord:'',horario:'',trabajo:'',prv:'',zona:''};
   renderConfig();renderUnitConfig();guardarMatriz(true);RESULT_BUFFER=null;$('bdl').style.display='none';
-  alerta('Cuadrilla '+VISIBLE_GROUP_COUNT+' agregada. Ya puedes completar sus datos.','s');
+  alerta('Cuadrilla '+nuevo+' agregada. Ya puedes completar sus datos.','s');
+}
+function eliminarCuadrilla(g){
+  if(!confirm('¿Eliminar la cuadrilla '+g+'? El personal y las unidades asignadas quedarán sin cuadrilla.'))return;
+  if(DATA){
+    [...(DATA.personal||[]),...(DATA.brazos||[]),...(DATA.camionetas||[])].forEach(x=>{if(numGroup(x.grupo)===g)x.grupo='';});
+  }
+  Object.values(UNIT_CONFIG||{}).forEach(u=>{if(numGroup(u.grupo)===g)u.grupo='';});
+  GROUP_CONFIG[g]={base:'',coord:'',horario:'',trabajo:'',prv:'',zona:''};
+  VISIBLE_GROUP_IDS=getVisibleGroupIds().filter(x=>x!==g);VISIBLE_GROUP_COUNT=VISIBLE_GROUP_IDS.length;
+  completarUnidadesGuardadas(DATA,UNIT_CONFIG);
+  renderConfig();renderUnitConfig();renderPreview();guardarMatriz(true);RESULT_BUFFER=null;$('bdl').style.display='none';
+  alerta('Cuadrilla '+g+' eliminada. Sus unidades aparecen ahora como no asignadas.','s');
+}
+function modificarCuadrilla(g){
+  const raw=prompt('Nuevo número para la cuadrilla '+g+':',String(g));if(raw===null)return;
+  const nuevo=numGroup(raw);if(!nuevo){alerta('Ingresa un número de cuadrilla entre 1 y '+MAX_GROUPS+'.','w');return;}
+  if(nuevo===g)return;
+  if(getVisibleGroupIds().includes(nuevo)){alerta('La cuadrilla '+nuevo+' ya existe.','w');return;}
+  GROUP_CONFIG[nuevo]=deepClone(GROUP_CONFIG[g]||{base:'',coord:'',horario:'',trabajo:'',prv:'',zona:''});
+  GROUP_CONFIG[g]={base:'',coord:'',horario:'',trabajo:'',prv:'',zona:''};
+  if(DATA){
+    [...(DATA.personal||[]),...(DATA.brazos||[]),...(DATA.camionetas||[])].forEach(x=>{if(numGroup(x.grupo)===g){x.grupo=nuevo;x.color=groupColor(nuevo,null);}});
+  }
+  Object.values(UNIT_CONFIG||{}).forEach(u=>{if(numGroup(u.grupo)===g)u.grupo=String(nuevo);});
+  VISIBLE_GROUP_IDS=normalizeGroupIds(getVisibleGroupIds().map(x=>x===g?nuevo:x));VISIBLE_GROUP_COUNT=VISIBLE_GROUP_IDS.length;
+  renderConfig();renderUnitConfig();renderPreview();guardarMatriz(true);RESULT_BUFFER=null;$('bdl').style.display='none';
+  alerta('Cuadrilla '+g+' cambiada a '+nuevo+'.','s');
 }
 function selectEditor(g,field,current,cssClass){
   const options=FIELD_OPTIONS[field]||[],currentText=norm(current);
@@ -633,7 +675,7 @@ function selectEditor(g,field,current,cssClass){
 function renderConfig(){
   const body=$('configBody');if(!body)return;
   body.innerHTML='';
-  for(let g=1;g<=VISIBLE_GROUP_COUNT;g++){
+  for(const g of getVisibleGroupIds()){
     const c=GROUP_CONFIG[g]||{};const tr=document.createElement('tr'),bg=groupColor(g,null);
     tr.innerHTML=`
       <td><span class="group-dot" style="background:${bg};color:#111">${g}</span></td>
@@ -642,10 +684,10 @@ function renderConfig(){
       <td>${selectEditor(g,'horario',c.horario,'schedule-input')}</td>
       <td><input class="config-input work-input" data-group="${g}" data-field="trabajo" value="${esc(c.trabajo)}" placeholder="Escribir tipo de trabajo"></td>
       <td>${selectEditor(g,'prv',c.prv,'prv-input')}</td>
-      <td>${selectEditor(g,'zona',c.zona,'zone-input')}</td>`;
+      <td>${selectEditor(g,'zona',c.zona,'zone-input')}</td><td class="actions-col"><div class="row-actions"><button type="button" class="icon-btn edit" onclick="modificarCuadrilla(${g})">✏️ Modificar</button><button type="button" class="icon-btn delete" onclick="eliminarCuadrilla(${g})">🗑️ Eliminar</button></div></td>`;
     body.appendChild(tr);
   }
-  if($('groupCountLabel'))$('groupCountLabel').textContent=VISIBLE_GROUP_COUNT+(VISIBLE_GROUP_COUNT===1?' cuadrilla':' cuadrillas');
+  VISIBLE_GROUP_COUNT=getVisibleGroupIds().length;if($('groupCountLabel'))$('groupCountLabel').textContent=VISIBLE_GROUP_COUNT+(VISIBLE_GROUP_COUNT===1?' cuadrilla':' cuadrillas');
   if($('bAddGroup'))$('bAddGroup').disabled=VISIBLE_GROUP_COUNT>=MAX_GROUPS;
 }
 function aplicarCambioMatriz(g,field,value){
@@ -671,32 +713,45 @@ function unitKey(v){return [v.tipo||'UNIDAD',v.sourceRow,normKey(v.placa)].join(
 function unidadesEspeciales(data){return data?[...data.brazos,...data.camionetas].filter(v=>!numGroup(v.grupo)):[];}
 function inicializarUnidades(data){
   UNIT_CONFIG={};
-  unidadesEspeciales(data).forEach(v=>{UNIT_CONFIG[unitKey(v)]={grupo:norm(v.grupo),horario:'',base:''};});
+  unidadesEspeciales(data).forEach(v=>{UNIT_CONFIG[unitKey(v)]={grupo:norm(v.grupo),horario:'',base:'',placa:v.placa,deleted:false};});
 }
 function unidadEfectiva(v){
-  const special=!numGroup(v.grupo),u=special?(UNIT_CONFIG[unitKey(v)]||{grupo:norm(v.grupo),horario:'',base:''}):null;
-  const grupo=special?u.grupo:v.grupo,g=numGroup(grupo);
-  return {...v,grupo,horario:g?(GROUP_CONFIG[g]?.horario||''):(u?.horario||''),base:g?(GROUP_CONFIG[g]?.base||''):(u?.base||'')};
+  const special=!numGroup(v.grupo),u=special?(UNIT_CONFIG[unitKey(v)]||{grupo:norm(v.grupo),horario:'',base:'',placa:v.placa,deleted:false}):null;
+  if(special&&u.deleted)return null;
+  const grupo=special?u.grupo:v.grupo,g=numGroup(grupo),placa=special?(norm(u.placa)||v.placa):v.placa;
+  return {...v,placa,grupo,horario:g?(GROUP_CONFIG[g]?.horario||''):(u?.horario||''),base:g?(GROUP_CONFIG[g]?.base||''):(u?.base||'')};
 }
-function unidadesEfectivas(data){return data?[...data.brazos,...data.camionetas].map(unidadEfectiva):[];}
+function unidadesEfectivas(data){return data?[...data.brazos,...data.camionetas].map(unidadEfectiva).filter(Boolean):[];}
 function unitSelectEditor(key,field,current,options,label,cssClass=''){
   const currentText=norm(current),match=options.find(v=>normKey(v)===normKey(currentText)),isOther=!!currentText&&!match;
   return `<div class="select-editor"><select class="config-input config-select ${cssClass}" data-unit-key="${esc(key)}" data-unit-field="${field}"><option value="" ${!currentText?'selected':''}>— ${esc(label)} —</option>${options.map(v=>`<option value="${esc(v)}" ${match===v?'selected':''}>${esc(v)}</option>`).join('')}<option value="__OTRO__" ${isOther?'selected':''}>OTRO...</option></select><input class="config-input other-input ${isOther?'show':''}" data-unit-key="${esc(key)}" data-unit-field="${field}" value="${isOther?esc(currentText):''}" placeholder="Escribir otro ${esc(label)}"></div>`;
 }
 function renderUnitConfig(){
   const section=$('unitConfigSection'),body=$('unitConfigBody');if(!section||!body)return;
-  const units=unidadesEspeciales(DATA);section.style.display=units.length?'block':'none';body.innerHTML='';
+  const units=unidadesEspeciales(DATA).filter(v=>!(UNIT_CONFIG[unitKey(v)]&&UNIT_CONFIG[unitKey(v)].deleted));section.style.display=units.length?'block':'none';body.innerHTML='';
   units.forEach(v=>{
-    const key=unitKey(v),u=UNIT_CONFIG[key]||(UNIT_CONFIG[key]={grupo:norm(v.grupo),horario:'',base:''}),g=numGroup(u.grupo),tr=document.createElement('tr');
+    const key=unitKey(v),u=UNIT_CONFIG[key]||(UNIT_CONFIG[key]={grupo:norm(v.grupo),horario:'',base:'',placa:v.placa,deleted:false}),g=numGroup(u.grupo),tr=document.createElement('tr');
+    if(u.placa===undefined)u.placa=v.placa;
     const horario=g?`<input class="config-input unit-auto" value="Según cuadrilla ${g}: ${esc(GROUP_CONFIG[g]?.horario||'vacío')}" disabled>`:unitSelectEditor(key,'horario',u.horario,FIELD_OPTIONS.horario,'horario','schedule-input');
     const base=g?`<input class="config-input unit-auto" value="Según cuadrilla ${g}: ${esc(GROUP_CONFIG[g]?.base||'vacío')}" disabled>`:unitSelectEditor(key,'base',u.base,FIELD_OPTIONS.base,'sede','base-input');
-    tr.innerHTML=`<td class="unit-type">${esc(v.tipo)}</td><td class="unit-plate">${esc(v.placa)}</td><td>${unitSelectEditor(key,'grupo',u.grupo,unitGroupOptions(),'grupo o condición','base-input')}</td><td>${horario}</td><td>${base}</td><td class="unit-comment">${esc(v.nota||'')}</td>`;
+    tr.innerHTML=`<td class="unit-type">${esc(v.tipo)}</td><td class="unit-plate">${esc(u.placa||v.placa)}</td><td>${unitSelectEditor(key,'grupo',u.grupo,unitGroupOptions(),'grupo o condición','base-input')}</td><td>${horario}</td><td>${base}</td><td class="unit-comment">${esc(v.nota||'')}</td><td class="actions-col"><div class="row-actions"><button type="button" class="icon-btn edit" onclick="modificarUnidad('${encodeURIComponent(key)}')">✏️ Modificar</button><button type="button" class="icon-btn delete" onclick="eliminarUnidad('${encodeURIComponent(key)}')">🗑️ Eliminar</button></div></td>`;
     body.appendChild(tr);
   });
 }
 function aplicarCambioUnidad(key,field,value){
-  if(!UNIT_CONFIG[key])UNIT_CONFIG[key]={grupo:'',horario:'',base:''};
+  if(!UNIT_CONFIG[key])UNIT_CONFIG[key]={grupo:'',horario:'',base:'',placa:'',deleted:false};
   UNIT_CONFIG[key][field]=value;RESULT_BUFFER=null;$('bdl').style.display='none';if(DATA)renderPreview();
+}
+function modificarUnidad(key){
+  key=decodeURIComponent(key);const u=UNIT_CONFIG[key];if(!u)return;
+  const raw=prompt('Nuevo código o placa de la unidad:',u.placa||'');if(raw===null)return;
+  const nuevo=norm(raw);if(!nuevo){alerta('El código de la unidad no puede quedar vacío.','w');return;}
+  u.placa=nuevo;renderUnitConfig();renderPreview();RESULT_BUFFER=null;$('bdl').style.display='none';alerta('Unidad modificada a '+nuevo+'.','s');
+}
+function eliminarUnidad(key){
+  key=decodeURIComponent(key);const u=UNIT_CONFIG[key];if(!u)return;
+  if(!confirm('¿Eliminar esta unidad del programa?'))return;
+  u.deleted=true;renderUnitConfig();renderPreview();RESULT_BUFFER=null;$('bdl').style.display='none';alerta('Unidad eliminada del programa.','s');
 }
 $('unitConfigBody').addEventListener('change',e=>{
   const el=e.target;if(!el.matches('select[data-unit-key][data-unit-field]'))return;
@@ -721,10 +776,11 @@ function activeNumericGroups(data){
 function renderPreview(){
   if(!DATA)return;
   const allVeh=unidadesEfectivas(DATA),groups=activeNumericGroups(DATA);
+  const brazosActivos=DATA.brazos.map(unidadEfectiva).filter(Boolean).length,camionetasActivas=DATA.camionetas.map(unidadEfectiva).filter(Boolean).length;
   $('stats').innerHTML=`
     <div class="stat"><div class="stat-n">${DATA.personal.length}</div><div class="stat-l">Personal</div></div>
-    <div class="stat"><div class="stat-n">${DATA.brazos.length}</div><div class="stat-l">Brazos</div></div>
-    <div class="stat"><div class="stat-n">${DATA.camionetas.length}</div><div class="stat-l">Camionetas</div></div>
+    <div class="stat"><div class="stat-n">${brazosActivos}</div><div class="stat-l">Brazos</div></div>
+    <div class="stat"><div class="stat-n">${camionetasActivas}</div><div class="stat-l">Camionetas</div></div>
     <div class="stat"><div class="stat-n">${groups.length}</div><div class="stat-l">Cuadrillas activas</div></div>`;
   $('chips').innerHTML=groups.map(g=>{
     const n=DATA.personal.filter(p=>numGroup(p.grupo)===g).length,bg=groupColor(g,DATA.personal.find(p=>numGroup(p.grupo)===g&&p.color)?.color);
@@ -737,7 +793,7 @@ function renderPreview(){
   </div>`;
 }
 function renderLeft(data){
-  const brazos=data.brazos.map(unidadEfectiva),camionetas=data.camionetas.map(unidadEfectiva);
+  const brazos=data.brazos.map(unidadEfectiva).filter(Boolean),camionetas=data.camionetas.map(unidadEfectiva).filter(Boolean);
   const vehicleTable=(title,arr)=>{
     let rows=arr.map(v=>{
       const g=numGroup(v.grupo),bg=g?groupColor(g,v.color):'#fff';
@@ -939,7 +995,7 @@ async function buildExcel(data){
     if(!arr.length){setMerged(ws,`A${r}:E${r}`,'Sin unidades registradas',{fontColor:'#000000'});r++;}
     return r;
   }
-  const brazosExcel=data.brazos.map(unidadEfectiva),camionetasExcel=data.camionetas.map(unidadEfectiva);
+  const brazosExcel=data.brazos.map(unidadEfectiva).filter(Boolean),camionetasExcel=data.camionetas.map(unidadEfectiva).filter(Boolean);
   let leftRow=3;leftRow=unitSection('BRAZO HIDRÁULICO',brazosExcel,leftRow)+2;leftRow=unitSection('CAMIONETA',camionetasExcel,leftRow)+2;
 
   // Resumen de unidades.
@@ -965,15 +1021,16 @@ async function buildExcel(data){
   cfg.columns=[{width:12},{width:17},{width:12},{width:20},{width:42},{width:18},{width:16}];
   const headers=['CUADRILLA','BASE','COORD.','HORARIO','TIPO DE TRABAJO','PRV','ZONA'];
   headers.forEach((v,i)=>{cfg.getCell(1,i+1).value=v;styleCell(cfg.getCell(1,i+1),{bold:true,fill:'#fff200'});});
-  for(let g=1;g<=VISIBLE_GROUP_COUNT;g++){
-    const c=GROUP_CONFIG[g],r=g+1,bg=groupColor(g,null);
+  const cfgGroupIds=getVisibleGroupIds();
+  cfgGroupIds.forEach((g,idx)=>{
+    const c=GROUP_CONFIG[g],r=idx+2,bg=groupColor(g,null);
     [g,c.base,c.coord,c.horario,c.trabajo,c.prv,c.zona].forEach((v,i)=>{cfg.getCell(r,i+1).value=v;styleCell(cfg.getCell(r,i+1),{fill:i===0?bg:null,bold:i===0,fontColor:'#000000'});});
-  }
+  });
   const lists=book.addWorksheet('LISTAS');
   const listData={A:['BASE','VITARTE','SAN JUAN','CAÑETE','OTRO'],B:['COORD.','I.D','S.L','D.F','U.T','O.S','B.H','E.B','OTRO'],C:['HORARIO','07:15 a 17:00','06:00 a 18:00','06:30 a 18:00','OTRO'],D:['PRV','1PVT','2PVT','3PVT','4PVT','OTRO'],E:['ZONA','CAÑETE','SAN JUAN','VITARTE','OTRO']};
   Object.entries(listData).forEach(([col,vals])=>vals.forEach((v,i)=>lists.getCell(`${col}${i+1}`).value=v));
   lists.state='veryHidden';
-  for(let r=2;r<=VISIBLE_GROUP_COUNT+1;r++){
+  for(let r=2;r<=cfgGroupIds.length+1;r++){
     cfg.getCell(r,2).dataValidation={type:'list',allowBlank:true,showErrorMessage:false,formulae:['LISTAS!$A$2:$A$5']};
     cfg.getCell(r,3).dataValidation={type:'list',allowBlank:true,showErrorMessage:false,formulae:['LISTAS!$B$2:$B$9']};
     cfg.getCell(r,4).dataValidation={type:'list',allowBlank:true,showErrorMessage:false,formulae:['LISTAS!$C$2:$C$5']};
@@ -981,14 +1038,14 @@ async function buildExcel(data){
     cfg.getCell(r,6).dataValidation={type:'list',allowBlank:true,showErrorMessage:false,formulae:['LISTAS!$D$2:$D$6']};
     cfg.getCell(r,7).dataValidation={type:'list',allowBlank:true,showErrorMessage:false,formulae:['LISTAS!$E$2:$E$5']};
   }
-  cfg.autoFilter={from:'A1',to:'G'+(VISIBLE_GROUP_COUNT+1)};
+  cfg.autoFilter={from:'A1',to:'G'+(cfgGroupIds.length+1)};
 
   // Datos internos para poder volver a subir este mismo Excel y corregirlo.
   const app=book.addWorksheet('DATOS_APP');
   app.state='veryHidden';
   app.getCell('A1').value='DRE_PROGRAMA_APP_V1';
   const dataCopy=deepClone(data);dataCopy.fecha=ymd(data.fecha);
-  const payload=JSON.stringify({version:2,fecha:ymd(data.fecha),data:dataCopy,groupConfig:GROUP_CONFIG,unitConfig:UNIT_CONFIG,visibleGroupCount:VISIBLE_GROUP_COUNT});
+  const payload=JSON.stringify({version:3,fecha:ymd(data.fecha),data:dataCopy,groupConfig:GROUP_CONFIG,unitConfig:UNIT_CONFIG,visibleGroupIds:getVisibleGroupIds(),visibleGroupCount:getVisibleGroupIds().length});
   const chunkSize=20000;
   for(let i=0;i<payload.length;i+=chunkSize)app.getCell(2+Math.floor(i/chunkSize),1).value=payload.slice(i,i+chunkSize);
   app.getColumn(1).width=2;
@@ -1017,7 +1074,7 @@ function descargarExcel(){
 }
 
 function reiniciar(){
-  WB=null;DATA=null;RESULT_BUFFER=null;ACTIVE_SOURCE=null;LOADED_GENERATED=false;FILE_NAME='';LOGS=[];SOURCE_CONFIG=deepClone(DEFAULT_CONFIG);UNIT_CONFIG={};VISIBLE_GROUP_COUNT=1;
+  WB=null;DATA=null;RESULT_BUFFER=null;ACTIVE_SOURCE=null;LOADED_GENERATED=false;FILE_NAME='';LOGS=[];SOURCE_CONFIG=deepClone(DEFAULT_CONFIG);UNIT_CONFIG={};VISIBLE_GROUP_COUNT=1;VISIBLE_GROUP_IDS=[1];
   dz.className='drop';$('dicon').textContent='📊';$('dtitle').textContent='Arrastra aquí o haz clic para seleccionar';$('dname').textContent='';$('fi').value='';$('fdate').value='';$('dchip').style.display='none';$('sheetChip').style.display='none';$('configCard').style.display='none';$('unitConfigSection').style.display='none';$('previewCard').style.display='none';$('bdl').style.display='none';$('logel').style.display='none';GROUP_CONFIG=normalizarConfigValores(DEFAULT_CONFIG);renderConfig();progreso(0);alerta('Carga un archivo y selecciona una fecha.','i');setReady();
 }
 
